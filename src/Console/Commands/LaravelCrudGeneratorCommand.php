@@ -47,12 +47,12 @@ class LaravelCrudGeneratorCommand extends Command
        $this->controller($name, $api);       
        $this->model($name);
        $this->request($name);
-       $this->info("{$name} CRUD successfully created!");
+       
        if($api) {
            $this->resource($name);
            $this->collection($name);
        }
-
+       $this->info("{$name} CRUD successfully created!");
        \File::append(base_path('routes/api.php'), 'Route::resource(\'' . str_plural(strtolower($name)) . "', '{$name}Controller');");
    }
     
