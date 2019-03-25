@@ -38,13 +38,20 @@ class LaravelCrudGeneratorCommand extends Command
    public function handle()
    {
        //
+       
        $name = $this->argument('name');
        
        $api = ($this->option('api') == 1);
-       $this->controller($name, $api);
-       
+
+       $this->info("Building CRUD for {$name}!");
+       $this->controller($name, $api);       
        $this->model($name);
        $this->request($name);
+       $this->info("{$name} CRUD successfully created!");
+       if($api) {
+           $this->resource($name);
+           $this->collection($name);
+       }
 
        \File::append(base_path('routes/api.php'), 'Route::resource(\'' . str_plural(strtolower($name)) . "', '{$name}Controller');");
    }
@@ -75,15 +82,16 @@ class LaravelCrudGeneratorCommand extends Command
             \File::makeDirectory(app_path("Models"), $mode = 0777, true, true);
         }
         file_put_contents(app_path("/Models/{$name}.php"), $modelTemplate);
+        $this->info(app_path("/Models/{$name}.php") . ' has been created successfully!');
     }
 
-   /**
+    /**
     * Create controller using stub.
     *
     * @return void
     */
-   protected function controller($name, $api = false)
-   {
+    protected function controller($name, $api = false)
+    {
        $stub = ($api) ? "ApiController" : "Controller";
        $controllerTemplate = str_replace(
            [
@@ -98,25 +106,26 @@ class LaravelCrudGeneratorCommand extends Command
            ],
            $this->getStub($stub)
        );
-       if($api) {
+        if($api) {
             if(!is_dir(app_path("/Http/Controllers/Api"))) {
                 \File::makeDirectory(app_path("/Http/Controllers/Api"), $mode = 0777, true, true);
             }
-           
-           file_put_contents(app_path("/Http/Controllers/Api/{$name}Controller.php"), $controllerTemplate);
-       } else {
-           file_put_contents(app_path("/Http/Controllers/{$name}Controller.php"), $controllerTemplate);
-       }
-       
-   }
+            
+            file_put_contents(app_path("/Http/Controllers/Api/{$name}Controller.php"), $controllerTemplate);
+            $this->info(app_path("/Http/Controllers/Api/{$name}Controller.php" ) . ' has been successfully!');
+        } else {
+            file_put_contents(app_path("/Http/Controllers/{$name}Controller.php"), $controllerTemplate);
+            $this->info(app_path("/Http/Controllers/{$name}Controller.php" ) . ' has been created successfully!');
+        } 
+    }
 
-   /**
+    /**
     * Create request using stub.
     *
     * @return void
     */
-   protected function request($name)
-   {
+    protected function request($name)
+    {
        $requestTemplate = str_replace(
            ['{{modelName}}'],
            [$name],
@@ -127,23 +136,42 @@ class LaravelCrudGeneratorCommand extends Command
            mkdir($path, 0777, true);
 
        file_put_contents(app_path("/Http/Requests/{$name}Request.php"), $requestTemplate);
-   }
+       $this->info(app_path("/Http/Requests/{$name}Request.php") . ' has been created successfully!');
+    }
 
-   protected function resource($name) {
-       $requestTemplate = str_replace(
-           ['{{modelName}}'],
-           [$name],
-           $this->getStub('Resource')
-       );
-   }
+    /**
+    * Create resource using stub.
+    *
+    * @return void
+    */
+    protected function resource($name) {       
+        $requestTemplate = str_replace(
+            ['{{modelName}}'],
+            [$name],
+            $this->getStub('Resource')
+        );
+        file_put_contents(app_path("/Http/Resources/{$name}.php"), $requestTemplate);
+        $this->info(app_path("/Http/Resources/{$name}.php") . ' has been created successfully!');
+    }
 
-   protected function collection($name) {
-       $requestTemplate = str_replace(
-           ['{{modelName}}'],
-           [$name],
-           $this->getStub('Collection')
-       );
-   }
+    /**
+    * Create collection using stub.
+    *
+    * @return void
+    */
+    protected function collection($name) {
+        $name = str_plural($name);
+        $requestTemplate = str_replace(
+            ['{{modelName}}'],
+            [$name],
+            $this->getStub('Collection')
+        );
+        if(!file_exists($path = app_path('/Http/Resources')))
+           mkdir($path, 0777, true);
+
+        file_put_contents(app_path("/Http/Resources/{$name}.php"), $requestTemplate);
+        $this->info(app_path("/Http/Resources/{$name}.php") . ' has been created successfully!');
+    }
 
 
 }
