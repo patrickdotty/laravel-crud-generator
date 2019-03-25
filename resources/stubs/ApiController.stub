@@ -1,0 +1,128 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Requests\{{modelName}}Request;
+use App\Models\{{modelName}};
+use \Response;
+use \DB;
+
+class {{modelName}}Controller extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        //
+        return {{modelName}}Resource::collection({{modelName}}::all());
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //        
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+        try {
+            //code...
+            $data = $request->all();
+            DB::beginTransaction();
+            ${{modelNameSingularLowerCase}} = new {{modelName}}($data);
+            ${{modelNameSingularLowerCase}}->save();
+            DB::commit();
+            return new {{modelName}}Resource($product);
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return Response::json(['error' => $th->getMessage()]);
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+        return new {{modelName}}Resource(Product::find($id));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+        
+    } 
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+        try {
+            //code...
+            $data = $request->all();
+            DB::beginTransaction();
+            ${{modelNameSingularLowerCase}} = {{modelName}}::find($id);
+            if(!${{modelNameSingularLowerCase}}) throw new Exception("{{modelName}} not found", 404);            
+            ${{modelNameSingularLowerCase}}->update($data);
+            DB::commit();
+            return new {{modelName}}Resource(${{modelNameSingularLowerCase}});
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return Response::json(['error' => $th->getMessage()]);
+        }
+    }       
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+        try {
+            //code...
+            DB::beginTransaction();
+            ${{modelNameSingularLowerCase}} = {{modelName}}::find($id);
+            if(!${{modelNameSingularLowerCase}}) throw new Exception("{{modelName}} not found", 404);            
+            ${{modelNameSingularLowerCase}}->delete();
+            DB::commit();
+            return Response::json(['success' => true]);
+        } catch (\Throwable $th) {
+            //throw $th;
+            DB::rollback();
+            return Response::json(['error' => $th->getMessage()]);
+        }
+    }
+}
