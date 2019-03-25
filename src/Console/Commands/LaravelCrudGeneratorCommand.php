@@ -82,7 +82,7 @@ class LaravelCrudGeneratorCommand extends Command
             \File::makeDirectory(app_path("Models"), $mode = 0777, true, true);
         }
         file_put_contents(app_path("/Models/{$name}.php"), $modelTemplate);
-        $this->info(app_path("{$name}.php") . ' has been created successfully!');
+        $this->info("{$name}.php" . ' has been created successfully!');
     }
 
     /**
@@ -112,10 +112,10 @@ class LaravelCrudGeneratorCommand extends Command
             }
             
             file_put_contents(app_path("/Http/Controllers/Api/{$name}Controller.php"), $controllerTemplate);
-            $this->info(app_path("{$name}Controller.php" ) . ' has been successfully!');
+            $this->info("{$name}Controller.php" . ' has been successfully!');
         } else {
             file_put_contents(app_path("/Http/Controllers/{$name}Controller.php"), $controllerTemplate);
-            $this->info(app_path("{$name}Controller.php" ) . ' has been created successfully!');
+            $this->info("{$name}Controller.php" . ' has been created successfully!');
         } 
     }
 
@@ -136,7 +136,7 @@ class LaravelCrudGeneratorCommand extends Command
            mkdir($path, 0777, true);
 
        file_put_contents(app_path("/Http/Requests/{$name}Request.php"), $requestTemplate);
-       $this->info(app_path("{$name}Request.php") . ' has been created successfully!');
+       $this->info("{$name}Request.php" . ' has been created successfully!');
     }
 
     /**
@@ -154,7 +154,7 @@ class LaravelCrudGeneratorCommand extends Command
             mkdir($path, 0777, true);
 
         file_put_contents(app_path("/Http/Resources/{$name}.php"), $requestTemplate);
-        $this->info(app_path("{$name}.php") . ' has been created successfully!');
+        $this->info("{$name}.php" . ' has been created successfully!');
     }
 
     /**
@@ -173,7 +173,7 @@ class LaravelCrudGeneratorCommand extends Command
            mkdir($path, 0777, true);
 
         file_put_contents(app_path("/Http/Resources/{$name}.php"), $requestTemplate);
-        $this->info(app_path("{$name}.php") . ' has been created successfully!');
+        $this->info("{$name}.php" . ' has been created successfully!');
     }
 
 
