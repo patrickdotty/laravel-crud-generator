@@ -51,8 +51,8 @@ class LaravelCrudGeneratorServiceProvider extends ServiceProvider
          */
         $this->loadViewsFrom(__DIR__.'/../../resources/stubs', 'laravel-crud-generator');
         $this->publishes([
-            __DIR__.'/../../resources/views' => resource_path('views/vendor/laravel-crud-generator'),
-        ], 'views');
+            __DIR__.'/../../resources/stubs' => resource_path('stubs/vendor/laravel-crud-generator'),
+        ], 'stubs');
 
         /**
          * Commands

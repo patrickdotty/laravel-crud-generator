@@ -56,7 +56,7 @@ class LaravelCrudGeneratorCommand extends Command
     */
    protected function getStub($type)
    {
-       return file_get_contents(resource_path("stubs/$type.stub"));
+        return file_get_contents(resource_path("stubs/vendor/laravel-crud-generator/$type.stub"));
    }
 
    /**
@@ -64,16 +64,18 @@ class LaravelCrudGeneratorCommand extends Command
     *
     * @return void
     */
-   protected function model($name)
-   {
-       $modelTemplate = str_replace(
-           ['{{modelName}}'],
-           [$name],
-           $this->getStub('Model')
-       );
-
-       file_put_contents(app_path("/Models/{$name}.php"), $modelTemplate);
-   }
+    protected function model($name)
+    {
+        $modelTemplate = str_replace(
+            ['{{modelName}}'],
+            [$name],
+            $this->getStub('Model')
+        );
+        if(!is_dir(app_path("Models"))) {
+            \File::makeDirectory(app_path("Models"), $mode = 0777, true, true);
+        }
+        file_put_contents(app_path("/Models/{$name}.php"), $modelTemplate);
+    }
 
    /**
     * Create controller using stub.
@@ -97,6 +99,10 @@ class LaravelCrudGeneratorCommand extends Command
            $this->getStub($stub)
        );
        if($api) {
+            if(!is_dir(app_path("/Http/Controllers/Api"))) {
+                \File::makeDirectory(app_path("/Http/Controllers/Api"), $mode = 0777, true, true);
+            }
+           
            file_put_contents(app_path("/Http/Controllers/Api/{$name}Controller.php"), $controllerTemplate);
        } else {
            file_put_contents(app_path("/Http/Controllers/{$name}Controller.php"), $controllerTemplate);
