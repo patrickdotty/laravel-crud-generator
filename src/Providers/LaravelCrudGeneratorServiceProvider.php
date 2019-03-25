@@ -49,7 +49,7 @@ class LaravelCrudGeneratorServiceProvider extends ServiceProvider
          * Uncomment the first section to load the views.
          * Uncomment the second section to make the view publishable using the 'view' tags.
          */
-        $this->loadViewsFrom(__DIR__.'/../../resources/views', 'laravel-crud-generator');
+        $this->loadViewsFrom(__DIR__.'/../../resources/stubs', 'laravel-crud-generator');
         $this->publishes([
             __DIR__.'/../../resources/views' => resource_path('views/vendor/laravel-crud-generator'),
         ], 'views');
