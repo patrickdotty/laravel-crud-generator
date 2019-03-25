@@ -150,6 +150,9 @@ class LaravelCrudGeneratorCommand extends Command
             [$name],
             $this->getStub('Resource')
         );
+        if(!file_exists($path = app_path('/Http/Resources')))
+            mkdir($path, 0777, true);
+
         file_put_contents(app_path("/Http/Resources/{$name}.php"), $requestTemplate);
         $this->info(app_path("/Http/Resources/{$name}.php") . ' has been created successfully!');
     }
