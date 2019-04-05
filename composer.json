@@ -11,7 +11,7 @@
   "homepage": "https://github.com/dottystyle/laravel-crud-generator",
   "require": {
     "php": ">=7.1.3",
-    "laravel/framework": "5.8.*"
+    "laravel/framework": "5.6.*|5.7.*|5.8.*"
   },
   "require-dev": {
     "phpunit/phpunit": "^7",
