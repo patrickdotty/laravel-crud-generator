@@ -20,7 +20,7 @@ class {{modelName}}Controller extends Controller
     {
         //
         ${{modelNamePluralLowerCase}} =  {{modelName}}Resource::collection({{modelName}}::all());
-        return view('{{modelNamePluralLowerCase}}.index', compact('{{modelNamePluralLowerCase}}));
+        return view('{{modelNamePluralLowerCase}}.index', compact('{{modelNamePluralLowerCase}}'));
     }
 
     /**
