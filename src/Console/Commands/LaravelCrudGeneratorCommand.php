@@ -13,6 +13,8 @@ class LaravelCrudGeneratorCommand extends Command
     */
    protected $signature = 'make:crud {name : Class (singular) for example User} {--api}';
 
+   const STUBS_PATH = __DIR__.'../../resources/stubs/';
+
    /**
     * The console command description.
     *
@@ -63,7 +65,7 @@ class LaravelCrudGeneratorCommand extends Command
     */
    protected function getStub($type)
    {
-        return file_get_contents(resource_path("stubs/vendor/laravel-crud-generator/$type.stub"));
+        return file_get_contents(STUBS_PATH.$type.".stub");
    }
 
    /**
