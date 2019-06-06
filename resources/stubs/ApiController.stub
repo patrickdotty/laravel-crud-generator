@@ -7,6 +7,7 @@ use App\Models\{{modelName}};
 use \Response;
 use \DB;
 use App\Http\Resources\{{modelName}} as {{modelName}}Resource;
+use App\Http\Controllers\Controller;
 
 class {{modelName}}Controller extends Controller
 {
