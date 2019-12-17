@@ -1,0 +1,31 @@
+<?php namespace App\Models\{{modelName}}\Services;
+
+use App\Models\{{modelName}}\Contracts\VideoInterface;
+use App\Models\{{modelName}};
+
+
+class {{modelName}}Service implements {{modelName}}Interface {
+    public function add($data){
+		
+	}
+	public function update($data){
+
+		return false;
+	}
+
+	public function delete($id){
+
+		return false;
+    }
+
+	public function all($data){
+		
+	}
+
+	public function show($id){
+		// code here . . .
+
+		return null;
+    }
+
+}
