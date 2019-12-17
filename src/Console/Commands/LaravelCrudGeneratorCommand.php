@@ -11,7 +11,7 @@ class LaravelCrudGeneratorCommand extends Command
     *
     * @var string
     */
-   protected $signature = 'make:crud {name : Class (singular) for example User} {--api}';
+   protected $signature = 'make:crud {name : Class (singular) for example User} {--api} {--with-service}';
 
    //const STUBS_PATH = base_path('resources/stubs/');
 
