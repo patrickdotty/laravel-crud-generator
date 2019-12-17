@@ -40,6 +40,8 @@ class ServiceGeneratorCommand extends Command
    public function handle()
    {
        //
+        $name = $this->argument('name');
+
         $this->info("Building Service for {$name}!");
         
         $this->interface($name);
