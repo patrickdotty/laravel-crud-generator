@@ -24,10 +24,18 @@ is to scaffold the very basic purpose of a CRUD. It creates the following:
 
 ## Using this package
 
-1. Building CRUD for api resources
+    1. Building CRUD for api resources
 
-        $ php artisan make:crud --api
+        php artisan make:crud  ModelName --api
 
-2. Building a simple CRUD
+    2. Building a simple CRUD
 
-        $ php artisan make:crud
+        php artisan make:crud ModelName
+
+    4. Building a simple CRUD with service
+
+        php artisan make:crud ModelName --with-service
+
+    3. Building a simple Service with Interface
+    
+        php artisan make:service ServiceName

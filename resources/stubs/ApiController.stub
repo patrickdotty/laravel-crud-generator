@@ -6,6 +6,8 @@ use App\Http\Requests\{{modelName}}Request;
 use App\Models\{{modelName}};
 use \Response;
 use \DB;
+use App\Http\Resources\{{modelName}} as {{modelName}}Resource;
+use App\Http\Controllers\Controller;
 
 class {{modelName}}Controller extends Controller
 {
@@ -36,7 +38,7 @@ class {{modelName}}Controller extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store({{modelName}}Request $request)
     {
         //
         try {
@@ -46,7 +48,7 @@ class {{modelName}}Controller extends Controller
             ${{modelNameSingularLowerCase}} = new {{modelName}}($data);
             ${{modelNameSingularLowerCase}}->save();
             DB::commit();
-            return new {{modelName}}Resource($product);
+            return new {{modelName}}Resource(${{modelNameSingularLowerCase}});
         } catch (\Throwable $th) {
             DB::rollback();
             return Response::json(['error' => $th->getMessage()]);
@@ -62,7 +64,7 @@ class {{modelName}}Controller extends Controller
     public function show($id)
     {
         //
-        return new {{modelName}}Resource(Product::find($id));
+        return new {{modelName}}Resource({{modelName}}::find($id));
     }
 
     /**
@@ -84,7 +86,7 @@ class {{modelName}}Controller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update({{modelName}}Request $request, $id)
     {
         //
         try {
