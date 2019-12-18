@@ -11,7 +11,7 @@ class ServiceGeneratorCommand extends Command
     *
     * @var string
     */
-   protected $signature = 'make:service {name : Class (singular) for example User}';
+   protected $signature = 'make:service {name : Service name (singular) for example VideoService} {model: Class (singular) for example User}';
 
    //const STUBS_PATH = base_path('resources/stubs/');
 
@@ -41,9 +41,11 @@ class ServiceGeneratorCommand extends Command
    {
        //
         $name = $this->argument('name');
+        $model = $this->argument('model');
 
         $this->info("Building Service for {$name}!");
         
+        $model = ($model) ? $model : $name;
         $this->interface($name);
         $this->service($name);
         
@@ -66,17 +68,17 @@ class ServiceGeneratorCommand extends Command
     *
     * @return void
     */
-    protected function service($name)
+    protected function service($name, $model)
     {
         $serviceTemplate = str_replace(
             ['{{modelName}}'],
             [$name],
             $this->getStub('Service')
         );
-        if(!is_dir(app_path("Models/{$name}/Services" ))) {
-            \File::makeDirectory(app_path("Models/{$name}/Services"), $mode = 0777, true, true);
+        if(!is_dir(app_path("Models/{$model}/Services" ))) {
+            \File::makeDirectory(app_path("Models/{$model}/Services"), $mode = 0777, true, true);
         }
-        file_put_contents(app_path("Models/{$name}/Services/{$name}Service.php"), $serviceTemplate);
+        file_put_contents(app_path("Models/{$model}/Services/{$name}Service.php"), $serviceTemplate);
         $this->info("{$name}Service.php" . ' has been created successfully!');
     }
 
@@ -85,17 +87,17 @@ class ServiceGeneratorCommand extends Command
     *
     * @return void
     */
-    protected function interface($name)
+    protected function interface($name, $model)
     {
         $serviceTemplate = str_replace(
             ['{{modelName}}'],
             [$name],
             $this->getStub('Interface')
         );
-        if(!is_dir(app_path("Models/{$name}/Contracts" ))) {
-            \File::makeDirectory(app_path("Models/{$name}/Contracts"), $mode = 0777, true, true);
+        if(!is_dir(app_path("Models/{$model}/Contracts" ))) {
+            \File::makeDirectory(app_path("Models/{$model}/Contracts"), $mode = 0777, true, true);
         }
-        file_put_contents(app_path("Models/{$name}/Contracts/{$name}Interface.php"), $serviceTemplate);
+        file_put_contents(app_path("Models/{$model}/Contracts/{$name}Interface.php"), $serviceTemplate);
         $this->info("{$name}Interface.php" . ' has been created successfully!');
     }
 
