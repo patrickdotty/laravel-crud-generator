@@ -63,6 +63,7 @@ class LaravelCrudGeneratorServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 \Dottystyle\LaravelCrudGenerator\Console\Commands\LaravelCrudGeneratorCommand::class,
+                \Dottystyle\LaravelCrudGenerator\Console\Commands\ServiceGeneratorCommand::class,
             ]);
         }
 
