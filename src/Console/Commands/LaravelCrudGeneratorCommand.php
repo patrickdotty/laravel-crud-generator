@@ -3,6 +3,7 @@
 namespace Dottystyle\LaravelCrudGenerator\Console\Commands;
 
 use Illuminate\Console\Command;
+use \Str;
 
 class LaravelCrudGeneratorCommand extends Command
 {
