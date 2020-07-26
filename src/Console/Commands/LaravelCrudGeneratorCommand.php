@@ -62,7 +62,7 @@ class LaravelCrudGeneratorCommand extends Command
         }
 
        $this->info("{$name} CRUD successfully created!");
-       \File::append(base_path('routes/api.php'), 'Route::resource(\'' . str_plural(strtolower($name)) . "', '{$name}Controller');");
+       \File::append(base_path('routes/api.php'), 'Route::resource(\'' . Str::plural(strtolower($name)) . "', '{$name}Controller');", 1);
    }
 
    /**
@@ -148,7 +148,7 @@ class LaravelCrudGeneratorCommand extends Command
            ],
            [
                $name,
-               strtolower(str_plural($name)),
+               strtolower(Str::plural($name, 2)),
                strtolower($name)
            ],
            $this->getStub($stub)
@@ -210,7 +210,7 @@ class LaravelCrudGeneratorCommand extends Command
     * @return void
     */
     protected function collection($name) {
-        $name = str_plural($name);
+        $name = Str::plural($name, 2);
         $requestTemplate = str_replace(
             ['{{modelName}}'],
             [$name],
